@@ -1,12 +1,12 @@
 import React from 'react';
 import './App.css';
-import TestComponent from './components/TestComponent';
+import Construction from './components/Construction';
 
 class App extends React.Component {
   render(): React.ReactNode {
     return (
       <div className="App">
-        <TestComponent />
+        <Construction />
       </div>
     );
   }
