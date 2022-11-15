@@ -3,7 +3,7 @@ import './App.css';
 import Construction from './components/Construction';
 
 class App extends React.Component {
-  render(): React.ReactNode {
+  render(){
     return (
       <div className="App">
         <Construction />
