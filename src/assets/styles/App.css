@@ -1,0 +1,22 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.App {
+  background-color: grey;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.defLink{
+  padding: 10px;
+  text-decoration: none;
+  color: black;
+  font-weight: 900;
+  font-size: 1.5em;
+}

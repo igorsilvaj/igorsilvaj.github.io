@@ -1,14 +1,16 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { useParams } from "react-router-dom";
 
-class TestComponent extends Component {
-  render() {
-    return (
+function TestComponent() {
+  const {id} = useParams();
+  return (
+    <div className='App'>
       <div>
-        <h1>Em construção</h1>
+        <h1>Em construção{id}</h1>
         <p>O timer está neste link <a href='https://igorsilvaj.github.io/timer/'>https://igorsilvaj.github.io/timer/</a></p>
       </div>
-    )
-  }
+    </div>
+  )
 }
 
 export default TestComponent;
