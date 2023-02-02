@@ -1,12 +1,13 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from "react";
+import { Link } from "react-router-dom";
 
-export const Navbar = () => {
+export const Navbar = (props) => {
+  const {links} = props;
   return (
-    <div>
-      <Link className='defLink' to="/" >Home</Link>
-      <Link className='defLink' to="/projects" >Projects</Link>
-      <Link className='defLink' to="/Construction" >Construction</Link>
+    <div className="nav">
+      {links.map((link) => {
+        return <Link key={link.name} className="defLink" to={link.url}>{link.name}</Link>
+      })}
     </div>
-  )
-}
+  );
+};

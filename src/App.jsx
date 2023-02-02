@@ -1,22 +1,23 @@
-import React from 'react';
-import './assets/styles/App.css';
-import { Outlet } from "react-router-dom";
-import { Navbar } from './components/Navbar';
-import { Home } from './pages/Home';
-// import { getContacts } from "../contacts";
+import React from "react";
+import "./assets/styles/App.css";
+import { Route, Routes } from "react-router-dom";
+import { Home } from "./pages/Home";
+import { Projects } from "./pages/Projects";
+import { Contact } from "./pages/Contact";
+import { Layout } from "./pages/Layout";
+import { ErrorPage } from "./components/error-page";
 
-// export async function loader() {
-//   const contacts = await getContacts();
-//   return { contacts };
-// }
-
-function App() {
+export const App = () => {
   return (
     <>
-      <Navbar />
-      <Outlet />
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route exact path="/" element={<Home />} />
+          <Route path="projects" element={<Projects />} />
+          <Route path="contact" element={<Contact />} />
+        </Route>
+        <Route path="*" element={<ErrorPage />} />
+      </Routes>
     </>
   );
-}
-
-export default App;
+};
