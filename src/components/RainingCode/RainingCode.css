@@ -1,0 +1,83 @@
+.rainingCode {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.one {
+  background-image: url('../../assets/img/tags/div.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  --i: 9;
+}
+
+.two {
+  background-image: url('../../assets/img/tags/div.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  --i: 16;
+}
+
+.three {
+  background-image: url('../../assets/img/tags/div.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  --i: 5;
+}
+
+.four {
+  background-image: url('../../assets/img/tags/div.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  --i: 14;
+}
+
+.five {
+  background-image: url('../../assets/img/tags/div.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  --i: 6;
+}
+
+.six {
+  background-image: url('../../assets/img/tags/div.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  --i: 8;
+}
+
+.rainingCode div {
+  position: relative;
+  top: 0;
+  width: 100px;
+  height: 50px;
+  animation: animateRain calc(15s / var(--i)) linear infinite;
+}
+
+
+@keyframes animateRain {
+  
+  0% {
+    transform: translateY(0) scale(1); 
+  }
+  30% {
+    transform: translateY(10vh) scale(0.7); 
+  }
+  50% {
+    transform: translateY(30vh) scale(0.6); 
+  }
+  70% {
+    transform: translateY(50vh) scale(0.5); 
+  }
+  100% {
+    transform: translateY(70vh) scale(0); 
+  }
+
+}

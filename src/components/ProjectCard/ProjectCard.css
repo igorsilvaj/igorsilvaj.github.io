@@ -1,0 +1,44 @@
+.projectCard {
+  background-color: white;
+  border-radius: 4px;
+  box-shadow: 0 1px 4px 0px rgb(0 0 0 / 20%);
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  width: 300px;
+  height: 280px;
+}
+
+.projectCard:hover {
+  cursor: pointer;
+  box-shadow: 0px 4px 8px 0px rgb(0 0 0 / 20%);
+}
+
+.projectCardLink:visited {
+  color: black;
+}
+
+.cardContent {
+  padding: 8px;
+}
+
+.projectThumbnail {
+  border-radius: 4px;
+  background-image: url("../../assets/img/trybewallet.png");
+  background-position: center;
+  background-size: cover;
+  width: 280px;
+  height: 200px;
+}
+
+.projectTitle {
+  font-weight: 900;
+  font-size: 1em;
+  margin: 0;
+}
+
+.cardButtons {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 0 5px;
+}

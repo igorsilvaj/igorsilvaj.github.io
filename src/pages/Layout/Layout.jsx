@@ -9,9 +9,8 @@ export const Layout = () => {
       <Navbar
         links={[
           { url: "/", name: "Inicio" },
-          // { url: "Construction", name: "Construction" },
-          // { url: "projects", name: "Projetos" },
-          // { url: "contact", name: "Contato"}
+          { url: "projects", name: "Projetos" },
+          { url: "contact", name: "Contato"}
         ]}
       />
       <Outlet />

@@ -6,6 +6,10 @@
   text-decoration: none;
 }
 
+a {
+  text-decoration: none;
+}
+
 :root {
   --defaultMaxWidth: 940px;
 }
