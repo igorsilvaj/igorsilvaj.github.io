@@ -1,13 +1,13 @@
 import React from "react";
-import "./assets/styles/App.css";
 import { Route, Routes } from "react-router-dom";
-import { Home } from "./pages/Home";
-import { Projects } from "./pages/Projects";
-import { Contact } from "./pages/Contact";
-import { Layout } from "./pages/Layout";
-import { ErrorPage } from "./components/error-page";
+import { Layout } from "./pages/Layout/Layout";
+import { Home } from "./pages/Home/Home";
+import { Projects } from "./pages/Projects/Projects";
+import { Contact } from "./pages/Contact/Contact";
+import { ErrorPage } from "./pages/ErrorPage/error-page";
 
-export const App = () => {
+
+export default function App() {
   return (
     <>
       <Routes>
@@ -20,4 +20,4 @@ export const App = () => {
       </Routes>
     </>
   );
-};
+}

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Outlet } from "react-router-dom";
-import ProjectCard from '../components/ProjectCard';
+import ProjectCard from '../../components/ProjectCard/ProjectCard';
 
 export const Projects = () => {
   return (
