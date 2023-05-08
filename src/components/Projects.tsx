@@ -2,28 +2,43 @@ import React, { useState } from "react";
 import styled, { css } from "styled-components";
 import ProjectCard from "./ProjectCard";
 import apiReturn from "../mock";
+import useWindowSize from "../hooks/useWindowSize";
 
 interface StyleProps {
   selected?: boolean;
+  size?: string;
 }
 
 const Wrapper = styled.section`
   align-items: center;
-  /* background-color: #d6d0d0; */
   display: flex;
   flex-flow: column wrap;
   justify-content: flex-start;
   height: 100%;
-  max-width: 917px;
+  max-width: 956px;
   width: 90%;
 `;
 
-const ProjectsContainer = styled.div`
+const Canvas = styled.div`
+  border: 1px solid #0000001f;
+  border-radius: 4px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  gap: 10px;
+  padding: 5px;
+  margin-bottom: 45px;
+  width: 100%;
+`;
+
+const InnerCanvas = styled.div`
+  border-radius: 4px;
   display: flex;
   flex-flow: row wrap;
   justify-content: flex-start;
-  gap: 8px;
-  width: 100%;
+  gap: 10px;
+  padding: 5px;
+  width: ${(props: StyleProps) => props.size || "933px"};
 `;
 
 const FilterContainer = styled.div`
@@ -47,17 +62,30 @@ const FilterOption = styled.span`
 `;
 
 export default function Projects() {
-  // colocar chave featured no banco de dados
   const [activeFilter, setActiveFilter] = useState("Todos");
+  const screen = useWindowSize();
+
+  const canvasBreakPoints = (): string => {
+    if (screen.width) {
+      if (screen.width > 1050) return "933px";
+      if (screen.width >= 705) return "623px";
+    }
+    return "310px";
+  };
+
+  const canvasSize = canvasBreakPoints();
+
   const dictionary: { [key: string]: string } = {
     FrontEnd: "FE",
     BackEnd: "BE",
     FullStack: "FS",
     Todos: "",
   };
+
   const filtered = apiReturn.filter((e) =>
     e.type.includes(dictionary[activeFilter])
   );
+
   const handleClick = (
     event: React.MouseEvent<HTMLSpanElement, MouseEvent>
   ) => {
@@ -98,18 +126,20 @@ export default function Projects() {
           FullStack
         </FilterOption>
       </FilterContainer>
-      <ProjectsContainer>
-        {filtered.map((e) => (
-          <ProjectCard
-            key={e.id}
-            image={e.image}
-            name={e.name}
-            type={e.type}
-            url={e.url}
-            repository={e.repository}
-          />
-        ))}
-      </ProjectsContainer>
+      <Canvas>
+        <InnerCanvas size={canvasSize}>
+          {filtered.map((e) => (
+            <ProjectCard
+              key={e.id}
+              image={e.image}
+              name={e.name}
+              type={e.type}
+              url={e.url}
+              repository={e.repository}
+            />
+          ))}
+        </InnerCanvas>
+      </Canvas>
     </Wrapper>
   );
 }

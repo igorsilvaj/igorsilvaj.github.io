@@ -47,20 +47,40 @@ const Presentation = styled.div`
 `;
 
 const StyledHeading = styled.h1`
-  font-size: 10vw;
+  font-size: 5rem;
   font-weight: 900;
   text-align: center;
   width: 100%;
   z-index: 998;
+
+  @media screen and (width < 675px) {
+    font-size: 4rem;
+  }
 `;
 
 const StyledHeading2 = styled.h2`
-  font-size: 4vw;
+  font-size: 2rem;
   font-weight: 900;
   text-align: center;
   width: 100%;
   text-transform: uppercase;
   z-index: 998;
+
+  @media screen and (width < 675px) {
+    font-size: 1.5rem;
+  }
+`;
+
+const StyledHeading3 = styled.h3`
+  font-size: 1rem;
+  font-weight: 900;
+  text-align: center;
+  width: 100%;
+  z-index: 998;
+
+  @media screen and (width < 675px) {
+    font-size: 1rem;
+  }
 `;
 
 export default function Hero() {
@@ -68,8 +88,12 @@ export default function Hero() {
     <StyledSection id="hero">
       <RainingCode />
       <Presentation>
-        <StyledHeading> Igor Silva </StyledHeading>
+        <StyledHeading> Olá! Sou o Igor. </StyledHeading>
         <StyledHeading2>Desenvolvedor Full Stack Junior.</StyledHeading2>
+        <StyledHeading3>
+          <p>Aqui ficam organizados meus projetos do github por categorias.</p>
+          <p>Conforme aprendo novas tecnologias estou aplicando aqui.</p>
+        </StyledHeading3>
       </Presentation>
       <StyledDiv>
         <FaArrowDown

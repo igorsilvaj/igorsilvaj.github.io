@@ -12,12 +12,13 @@ const StyledSection = styled.section`
   ${(props: Props) =>
     props.mobile &&
     css`
-      background-color: gray;
+      background-color: rgba(128, 128, 128, 0.8);
       display: flex;
       flex-flow: row nowrap;
       justify-content: center;
       height: 100%;
-      right: 0;
+      left: 0;
+      padding-top: 10px;
       position: fixed;
       transform: translateY(8px);
       width: 150px;
@@ -29,7 +30,7 @@ const StyledSection = styled.section`
       width: 0;
     }
     to {
-      opacity: 1;
+      opacity: 0.8;
       width: 150px;
     }
   }
@@ -45,7 +46,7 @@ const StyledList = styled.ul`
     css`
       display: flex;
       flex-flow: ${(props: Props) => (props.mobile ? "column" : "row")} wrap;
-      gap: 8px 0;
+      gap: 15px 0;
     `};
 `;
 

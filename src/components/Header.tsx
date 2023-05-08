@@ -43,8 +43,8 @@ export default function Header(props: Props) {
 
   return (
     <StyledHeader bgColor={bgColor}>
-      {title}
       {isMobile ? mobileMenu : desktopMenu}
+      {title}
     </StyledHeader>
   );
 }
