@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled, { css } from "styled-components";
 import ProjectCard from "./ProjectCard";
-import apiReturn from "../mock";
+// import localProjects from "../mock";
 import useWindowSize from "../hooks/useWindowSize";
+import useAxios from "../hooks/useAxios";
+import axios from "../api/onRender";
+import { Project } from "../interfaces";
 
 interface StyleProps {
   selected?: boolean;
@@ -63,6 +66,9 @@ const FilterOption = styled.span`
 
 export default function Projects() {
   const [activeFilter, setActiveFilter] = useState("Todos");
+  const [projects, setProjects] = useState<[] | Project[]>([]);
+  const [filtered, setFiltered] = useState<[] | Project[]>([]);
+
   const screen = useWindowSize();
 
   const canvasBreakPoints = (): string => {
@@ -82,16 +88,41 @@ export default function Projects() {
     Todos: "",
   };
 
-  const filtered = apiReturn.filter((e) =>
-    e.type.includes(dictionary[activeFilter])
-  );
-
   const handleClick = (
     event: React.MouseEvent<HTMLSpanElement, MouseEvent>
   ) => {
     const span = event.target as HTMLSpanElement;
     setActiveFilter(span.id);
   };
+
+  const { response, loading, error, axiosFetch } = useAxios();
+
+  const getData = () => {
+    axiosFetch({
+      axiosInstance: axios,
+      method: "get",
+      url: "/projects",
+    });
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  useEffect(() => {
+    if (response) {
+      setProjects(response as unknown as Project[]);
+    }
+  }, [response]);
+
+  useEffect(() => {
+    if (projects.length > 0) {
+      setFiltered(
+        projects.filter((e) => e.type.includes(dictionary[activeFilter]))
+      );
+    }
+  }, [projects, activeFilter])
+  
 
   return (
     <Wrapper id="projects">
@@ -128,16 +159,21 @@ export default function Projects() {
       </FilterContainer>
       <Canvas>
         <InnerCanvas size={canvasSize}>
-          {filtered.map((e) => (
-            <ProjectCard
-              key={e.id}
-              image={e.image}
-              name={e.name}
-              type={e.type}
-              url={e.url}
-              repository={e.repository}
-            />
-          ))}
+          {loading && <p>loading...</p>}
+          {!loading && error && <p>{error}</p>}
+          {!loading &&
+            !error &&
+            filtered.length > 0 &&
+            filtered.map((e) => (
+              <ProjectCard
+                key={e.id}
+                image={e.image}
+                name={e.name}
+                type={e.type}
+                url={e.url}
+                repository={e.repository}
+              />
+            ))}
         </InnerCanvas>
       </Canvas>
     </Wrapper>
