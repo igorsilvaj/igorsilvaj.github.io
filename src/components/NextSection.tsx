@@ -33,7 +33,7 @@ export default function NextSection() {
     <StyledDiv>
       <FaArrowDown
         size={"30px"}
-        onClick={() => scrollToElement("projects", "block", "nearest")}
+        onClick={() => scrollToElement("projects")}
       />
     </StyledDiv>
   );
