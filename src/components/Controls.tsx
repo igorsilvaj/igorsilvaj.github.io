@@ -1,22 +1,22 @@
-import { useState } from "react";
-import styled, { css } from "styled-components";
+import { useState } from 'react'
+import styled, { css } from 'styled-components'
 import {
   RxChevronDown,
   RxChevronLeft,
   RxChevronRight,
   RxChevronUp,
   RxDoubleArrowDown,
-  RxDoubleArrowUp,
-} from "react-icons/rx";
-import { scrollToBottom, scrollToElement, scrollToTop } from "../utils/scroll";
-import { DefaultLink } from "../interfaces";
+  RxDoubleArrowUp
+} from 'react-icons/rx'
+import { scrollToBottom, scrollToElement, scrollToTop } from '../utils/scroll'
+import { type DefaultLink } from '../interfaces'
 
 interface StyleProps {
-  isOpen: boolean;
+  isOpen: boolean
 }
 
 interface Props {
-  links?: DefaultLink[];
+  links?: DefaultLink[]
 }
 
 const Container = styled.div`
@@ -41,7 +41,7 @@ const Container = styled.div`
     css`
       right: -180px;
     `}
-`;
+`
 
 const Wrapper = styled.div`
   align-items: center;
@@ -50,7 +50,7 @@ const Wrapper = styled.div`
   gap: 0 15px;
   justify-content: center;
   position: relative;
-`;
+`
 
 const StyledArrowContainer = styled.div`
   align-items: center;
@@ -62,71 +62,73 @@ const StyledArrowContainer = styled.div`
   justify-content: center;
   height: 30px;
   width: 30px;
-`;
+`
 
 const StyledMenu = styled.div`
   cursor: pointer;
   position: absolute;
   left: -25px;
-`;
+`
 
-export default function Controls(props: Props) {
-  const [isOpen, setIsOpen] = useState(false);
-  const [navIndex, setNavIndex] = useState(0);
-  const { links } = props;
-  let nav: string[] = ["hero"];
+export default function Controls (props: Props) {
+  const [isOpen, setIsOpen] = useState(false)
+  const [navIndex, setNavIndex] = useState(0)
+  const { links } = props
+  const nav: string[] = ['hero']
 
-  if (links) {
-    links.forEach((e) => e.type === "anchor" && nav.push(e.url));
+  if (links != null) {
+    links.forEach((e) => e.type === 'anchor' && nav.push(e.url))
   }
 
   const previous = () => {
-    scrollToElement(nav[navIndex - 1]);
-    navIndex > 0 && setNavIndex(navIndex - 1);
-    console.log("state", navIndex);
-    console.log("nav", nav);
-  };
+    scrollToElement(nav[navIndex - 1])
+    navIndex > 0 && setNavIndex(navIndex - 1)
+    console.log('state', navIndex)
+    console.log('nav', nav)
+  }
 
   const next = () => {
-    scrollToElement(nav[navIndex + 1]);
-    navIndex < nav.length - 1 && setNavIndex(navIndex + 1);
-    console.log("state", navIndex);
-    console.log("nav", nav);
-  };
+    scrollToElement(nav[navIndex + 1])
+    navIndex < nav.length - 1 && setNavIndex(navIndex + 1)
+    console.log('state', navIndex)
+    console.log('nav', nav)
+  }
 
   return (
     <Container isOpen={isOpen}>
       <Wrapper>
         <StyledMenu>
-          {isOpen ? (
-            <RxChevronRight onClick={() => setIsOpen(!isOpen)} />
-          ) : (
-            <RxChevronLeft onClick={() => setIsOpen(!isOpen)} />
-          )}
+          {isOpen
+            ? (
+            <RxChevronRight onClick={() => { setIsOpen(!isOpen) }} />
+              )
+            : (
+            <RxChevronLeft onClick={() => { setIsOpen(!isOpen) }} />
+              )}
         </StyledMenu>
         <StyledArrowContainer>
           <RxDoubleArrowDown
             onClick={() => {
-              scrollToBottom();
-              setNavIndex(nav.length - 1);
+              scrollToBottom()
+              setNavIndex(nav.length - 1)
             }}
           />
         </StyledArrowContainer>
         <StyledArrowContainer>
-          <RxChevronUp onClick={() => previous()} />
+          <RxChevronUp onClick={() => { previous() }} />
         </StyledArrowContainer>
         <StyledArrowContainer>
-          <RxChevronDown onClick={() => next()} />
+          <RxChevronDown onClick={() => { next() }} />
         </StyledArrowContainer>
         <StyledArrowContainer>
           <RxDoubleArrowUp
             onClick={() => {
-              scrollToTop();
-              setNavIndex(0);
+              scrollToTop()
+              setNavIndex(0)
             }}
           />
         </StyledArrowContainer>
       </Wrapper>
     </Container>
-  );
+  )
 }

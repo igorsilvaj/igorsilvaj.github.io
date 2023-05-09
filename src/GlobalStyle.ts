@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from 'styled-components'
 
 const GlobalStyle = createGlobalStyle`
 * {
@@ -103,7 +103,7 @@ table {
 
 export const constants = {
   HEADER_HEIGHT: '45px',
-  HEADER_HEIGHT_NUMBER: 45,
+  HEADER_HEIGHT_NUMBER: 45
 }
 
-export default GlobalStyle;
+export default GlobalStyle

@@ -1,20 +1,20 @@
-import { AxiosInstance, AxiosResponse } from "axios";
-import { useState, useEffect } from "react";
+import { type AxiosInstance, type AxiosResponse } from 'axios'
+import { useState, useEffect } from 'react'
 
-type Methods = "head" | "options" | "put" | "post" | "patch" | "delete" | "get";
+type Methods = 'get' | 'post' | 'patch' | 'put' | 'delete' | 'head' | 'options'
 
 interface AxiosConfigObj {
-  axiosInstance: AxiosInstance,
-  method: Methods,
-  url: string,
+  axiosInstance: AxiosInstance
+  method: Methods
+  url: string
   requestConfig?: []
 }
 
-export default function useAxiosFunction() {
-  const [response, setResponse] = useState<AxiosResponse>();
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState<boolean>(false); //different!
-  const [controller, setController] = useState<undefined | AbortController>();
+export default function useAxiosFunction () {
+  const [response, setResponse] = useState<AxiosResponse>()
+  const [error, setError] = useState('')
+  const [loading, setLoading] = useState<boolean>(false)
+  const [controller, setController] = useState<undefined | AbortController>()
 
   const axiosFetch = async (configObj: AxiosConfigObj): Promise<void> => {
     const {
@@ -22,31 +22,31 @@ export default function useAxiosFunction() {
       method,
       url,
       requestConfig = {}
-    } = configObj;
+    } = configObj
 
     try {
-      setLoading(true);
-      const ctrl = new AbortController();
-      setController(ctrl);
-      method.toLocaleLowerCase();
+      setLoading(true)
+      const ctrl = new AbortController()
+      setController(ctrl)
+      method.toLocaleLowerCase()
       const res = await axiosInstance[method](url, {
         ...requestConfig,
         signal: ctrl.signal
-      });
-      setResponse(res.data);
+      })
+      setResponse(res.data)
     } catch (err) {
       if (err instanceof Error) {
-        console.log(err.message);
-        setError(err.message);
+        console.log(err.message)
+        setError(err.message)
       }
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
   }
 
   useEffect(() => {
-    return () => controller && controller.abort();
-  }, [controller]);
+    return () => { if (controller !== undefined) controller.abort() }
+  }, [controller])
 
-  return { response, error, loading, axiosFetch };
+  return { response, error, loading, axiosFetch }
 }

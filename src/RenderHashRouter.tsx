@@ -1,17 +1,17 @@
-import { createHashRouter, RouterProvider } from "react-router-dom";
-import RootRoute from "./routes/RootRoute";
-import Error from "./routes/Error";
-import path from "./routes/Path";
+import { createHashRouter, RouterProvider } from 'react-router-dom'
+import RootRoute from './routes/RootRoute'
+import Error from './routes/Error'
+import path from './routes/Path'
 
 const router = createHashRouter([
   {
-    path: "/",
+    path: '/',
     element: <RootRoute />,
     errorElement: <Error />,
-    children: [...path],
-  },
-]);
+    children: [...path]
+  }
+])
 
-export default function RenderHashRouter() {
-  return <RouterProvider router={router} />;
+export default function RenderHashRouter () {
+  return <RouterProvider router={router} />
 }

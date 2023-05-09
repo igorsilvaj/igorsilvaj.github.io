@@ -1,7 +1,7 @@
-import { useParams } from "react-router-dom";
+import { useParams } from 'react-router-dom'
 
-export function Construction() {
-  const { id } = useParams();
+export function Construction () {
+  const { id } = useParams()
   return (
     <div className="App">
       <div>
@@ -9,13 +9,13 @@ export function Construction() {
         <p>O timer está neste link</p>
       </div>
     </div>
-  );
+  )
 }
 
-export default function Teste() {
+export default function Teste () {
   return (
     <div>
       <Construction />
     </div>
-  );
+  )
 }

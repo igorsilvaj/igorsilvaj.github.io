@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { constants } from "../GlobalStyle";
+import styled from 'styled-components'
+import { constants } from '../GlobalStyle'
 
 const StyledSection = styled.section`
   align-items: center;
@@ -9,13 +9,13 @@ const StyledSection = styled.section`
   color: black;
   height: 50px;
   margin-top: ${constants.HEADER_HEIGHT};
-`;
+`
 
-export default function Footer() {
+export default function Footer () {
   return (
     <StyledSection>
       <p>Em constante desenvolvimento 👨‍💻</p>
       <p>Última versão em Maio/23</p>
     </StyledSection>
-  );
+  )
 }

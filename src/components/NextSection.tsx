@@ -1,6 +1,6 @@
-import { FaArrowDown } from "react-icons/fa";
-import styled from "styled-components";
-import { scrollToElement } from "../utils/scroll";
+import { FaArrowDown } from 'react-icons/fa'
+import styled from 'styled-components'
+import { scrollToElement } from '../utils/scroll'
 
 const StyledDiv = styled.div`
   align-self: flex-end;
@@ -26,15 +26,15 @@ const StyledDiv = styled.div`
       transform: translateY(-15px);
     }
   }
-`;
+`
 
-export default function NextSection() {
+export default function NextSection () {
   return (
     <StyledDiv>
       <FaArrowDown
-        size={"30px"}
-        onClick={() => scrollToElement("projects")}
+        size={'30px'}
+        onClick={() => { scrollToElement('projects') }}
       />
     </StyledDiv>
-  );
+  )
 }

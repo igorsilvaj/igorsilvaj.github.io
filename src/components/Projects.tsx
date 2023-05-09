@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from "react";
-import styled, { css } from "styled-components";
-import ProjectCard from "./ProjectCard";
+import React, { useEffect, useState } from 'react'
+import styled, { css } from 'styled-components'
+import ProjectCard from './ProjectCard'
 // import localProjects from "../mock";
-import useWindowSize from "../hooks/useWindowSize";
-import useAxios from "../hooks/useAxios";
-import axios from "../api/onRender";
-import { Project } from "../interfaces";
+import useWindowSize from '../hooks/useWindowSize'
+import useAxios from '../hooks/useAxios'
+import axios from '../api/onRender'
+import { type Project } from '../interfaces'
 
 interface StyleProps {
-  selected?: boolean;
-  size?: string;
+  selected?: boolean
+  size?: string
 }
 
 const Wrapper = styled.section`
@@ -20,7 +20,7 @@ const Wrapper = styled.section`
   height: 100%;
   max-width: 956px;
   width: 90%;
-`;
+`
 
 const Canvas = styled.div`
   border: 1px solid #0000001f;
@@ -32,7 +32,7 @@ const Canvas = styled.div`
   padding: 5px;
   margin-bottom: 45px;
   width: 100%;
-`;
+`
 
 const InnerCanvas = styled.div`
   border-radius: 4px;
@@ -41,8 +41,8 @@ const InnerCanvas = styled.div`
   justify-content: flex-start;
   gap: 10px;
   padding: 5px;
-  width: ${(props: StyleProps) => props.size || "933px"};
-`;
+  width: ${(props: StyleProps) => props.size ?? '933px'};
+`
 
 const FilterContainer = styled.div`
   align-self: flex-start;
@@ -50,79 +50,77 @@ const FilterContainer = styled.div`
   flex-flow: row wrap;
   padding: 10px 0;
   width: 80%;
-`;
+`
 
 const FilterTitle = styled.h3`
   width: 100%;
-`;
+`
 
 const FilterOption = styled.span`
   ${(props: StyleProps) =>
-    props.selected &&
+    (props.selected ?? false) &&
     css`
       font-weight: 900;
     `}
-`;
+`
 
-export default function Projects() {
-  const [activeFilter, setActiveFilter] = useState("Todos");
-  const [projects, setProjects] = useState<[] | Project[]>([]);
-  const [filtered, setFiltered] = useState<[] | Project[]>([]);
+export default function Projects () {
+  const [activeFilter, setActiveFilter] = useState('Todos')
+  const [projects, setProjects] = useState<[] | Project[]>([])
+  const [filtered, setFiltered] = useState<[] | Project[]>([])
 
-  const screen = useWindowSize();
+  const screen = useWindowSize()
 
   const canvasBreakPoints = (): string => {
-    if (screen.width) {
-      if (screen.width > 1050) return "933px";
-      if (screen.width >= 705) return "623px";
+    if (screen.width !== undefined) {
+      if (screen.width > 1050) return '933px'
+      if (screen.width >= 705) return '623px'
     }
-    return "310px";
-  };
+    return '310px'
+  }
 
-  const canvasSize = canvasBreakPoints();
+  const canvasSize = canvasBreakPoints()
 
-  const dictionary: { [key: string]: string } = {
-    FrontEnd: "FE",
-    BackEnd: "BE",
-    FullStack: "FS",
-    Todos: "",
-  };
+  const dictionary: Record<string, string> = {
+    FrontEnd: 'FE',
+    BackEnd: 'BE',
+    FullStack: 'FS',
+    Todos: ''
+  }
 
   const handleClick = (
     event: React.MouseEvent<HTMLSpanElement, MouseEvent>
   ) => {
-    const span = event.target as HTMLSpanElement;
-    setActiveFilter(span.id);
-  };
+    const span = event.target as HTMLSpanElement
+    setActiveFilter(span.id)
+  }
 
-  const { response, loading, error, axiosFetch } = useAxios();
-
-  const getData = () => {
-    axiosFetch({
-      axiosInstance: axios,
-      method: "get",
-      url: "/projects",
-    });
-  };
+  const { response, loading, error, axiosFetch } = useAxios()
 
   useEffect(() => {
-    getData();
-  }, []);
-
-  useEffect(() => {
-    if (response) {
-      setProjects(response as unknown as Project[]);
+    const getData = async () => {
+      await axiosFetch({
+        axiosInstance: axios,
+        method: 'get',
+        url: '/projects'
+      })
     }
-  }, [response]);
+    getData().catch(console.error)
+  }, [])
+
+  useEffect(() => {
+    if (response != null) {
+      setProjects(response as unknown as Project[])
+    }
+  }, [response])
 
   useEffect(() => {
     if (projects.length > 0) {
       setFiltered(
         projects.filter((e) => e.type.includes(dictionary[activeFilter]))
-      );
+      )
     }
   }, [projects, activeFilter])
-  
 
   return (
     <Wrapper id="projects">
@@ -130,28 +128,28 @@ export default function Projects() {
         <FilterTitle>Filtrar: </FilterTitle>
         <FilterOption
           id="Todos"
-          selected={activeFilter === "Todos"}
+          selected={activeFilter === 'Todos'}
           onClick={handleClick}
         >
           Todos
         </FilterOption>
         <FilterOption
           id="FrontEnd"
-          selected={activeFilter === "FrontEnd"}
+          selected={activeFilter === 'FrontEnd'}
           onClick={handleClick}
         >
           FrontEnd
         </FilterOption>
         <FilterOption
           id="BackEnd"
-          selected={activeFilter === "BackEnd"}
+          selected={activeFilter === 'BackEnd'}
           onClick={handleClick}
         >
           BackEnd
         </FilterOption>
         <FilterOption
           id="FullStack"
-          selected={activeFilter === "FullStack"}
+          selected={activeFilter === 'FullStack'}
           onClick={handleClick}
         >
           FullStack
@@ -160,9 +158,9 @@ export default function Projects() {
       <Canvas>
         <InnerCanvas size={canvasSize}>
           {loading && <p>loading...</p>}
-          {!loading && error && <p>{error}</p>}
+          {!loading && error.length > 0 && <p>{error}</p>}
           {!loading &&
-            !error &&
+            error.length === 0 &&
             filtered.length > 0 &&
             filtered.map((e) => (
               <ProjectCard
@@ -177,5 +175,5 @@ export default function Projects() {
         </InnerCanvas>
       </Canvas>
     </Wrapper>
-  );
+  )
 }

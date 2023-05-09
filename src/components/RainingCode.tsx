@@ -1,9 +1,9 @@
-import styled, { css } from "styled-components";
+import styled, { css } from 'styled-components'
 
-import tagDiv from "../assets/img/tags/div.png";
+import tagDiv from '../assets/img/tags/div.png'
 
 interface Props {
-  x?: number;
+  x?: number
 }
 
 const Raining = styled.div`
@@ -15,7 +15,7 @@ const Raining = styled.div`
   top: 0;
   width: 100vw;
   height: 50px;
-  `;
+  `
 
 const Code = styled.div`
 animation: animateRain calc(15s / var(--i)) linear infinite;
@@ -25,10 +25,8 @@ animation: animateRain calc(15s / var(--i)) linear infinite;
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
-  ${(props: Props) =>
-    props.x &&
-    css`
-      --i: ${(props: Props) => (props.x ? props.x : 2)};
+  ${(props: Props) => (props.x != null) && css`
+      --i: ${(props: Props) => (props.x ?? 0)};
     `};
   @keyframes animateRain {
     0% {
@@ -47,9 +45,9 @@ animation: animateRain calc(15s / var(--i)) linear infinite;
       transform: translateY(70vh) scale(0);
     }
   }
-`;
+`
 
-export default function RainingCode() {
+export default function RainingCode () {
   return (
     <Raining>
       <Code x={9} />
@@ -59,5 +57,5 @@ export default function RainingCode() {
       <Code x={6} />
       <Code x={8} />
     </Raining>
-  );
+  )
 }

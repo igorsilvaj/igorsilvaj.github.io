@@ -1,9 +1,9 @@
-import styled from "styled-components";
-import { FaArrowDown } from "react-icons/fa";
-import { constants } from "../GlobalStyle";
-import { scrollToElement } from "../utils/scroll";
+import styled from 'styled-components'
+import { FaArrowDown } from 'react-icons/fa'
+import { constants } from '../GlobalStyle'
+import { scrollToElement } from '../utils/scroll'
 
-import RainingCode from "./RainingCode";
+import RainingCode from './RainingCode'
 
 const StyledSection = styled.section`
   background-color: white;
@@ -13,7 +13,7 @@ const StyledSection = styled.section`
   min-height: 600px;
   height: calc(100vh - ${constants.HEADER_HEIGHT});
   margin-top: ${constants.HEADER_HEIGHT};
-`;
+`
 
 const StyledDiv = styled.div`
   align-self: flex-end;
@@ -38,13 +38,13 @@ const StyledDiv = styled.div`
       transform: translateY(-15px);
     }
   }
-`;
+`
 
 const Presentation = styled.div`
   display: flex;
   flex-flow: row wrap;
   width: 100%;
-`;
+`
 
 const StyledHeading = styled.h1`
   font-size: 5rem;
@@ -56,7 +56,7 @@ const StyledHeading = styled.h1`
   @media screen and (width < 675px) {
     font-size: 4rem;
   }
-`;
+`
 
 const StyledHeading2 = styled.h2`
   font-size: 2rem;
@@ -69,7 +69,7 @@ const StyledHeading2 = styled.h2`
   @media screen and (width < 675px) {
     font-size: 1.5rem;
   }
-`;
+`
 
 const StyledHeading3 = styled.h3`
   font-size: 1rem;
@@ -81,9 +81,9 @@ const StyledHeading3 = styled.h3`
   @media screen and (width < 675px) {
     font-size: 1rem;
   }
-`;
+`
 
-export default function Hero() {
+export default function Hero () {
   return (
     <StyledSection id="hero">
       <RainingCode />
@@ -97,10 +97,10 @@ export default function Hero() {
       </Presentation>
       <StyledDiv>
         <FaArrowDown
-          size={"30px"}
-          onClick={() => scrollToElement("projects")}
+          size={'30px'}
+          onClick={() => { scrollToElement('projects') }}
         />
       </StyledDiv>
     </StyledSection>
-  );
+  )
 }
