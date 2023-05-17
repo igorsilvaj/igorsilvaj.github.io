@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react'
 import styled, { css } from 'styled-components'
 import ProjectCard from './ProjectCard'
 // import localProjects from "../mock";
-import useWindowSize from '../hooks/useWindowSize'
-import useAxios from '../hooks/useAxios'
 import axios from '../api/onRender'
+import useAxios from '../hooks/useAxios'
+import useWindowSize from '../hooks/useWindowSize'
 import { type Project } from '../interfaces'
 
 interface StyleProps {
