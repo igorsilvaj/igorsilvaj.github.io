@@ -1,9 +1,12 @@
 import AdminPanel from '../components/Admin/AdminPanel'
+import PrivateRoute from '../utils/PrivateRoute'
 
 export default function Admin () {
   return (
     <>
-      <AdminPanel />
+      <PrivateRoute>
+        <AdminPanel />
+      </PrivateRoute>
     </>
   )
 }

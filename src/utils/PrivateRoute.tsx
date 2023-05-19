@@ -1,11 +1,17 @@
+import { useContext } from 'react'
 import { Navigate } from 'react-router-dom'
+import { AuthContext } from '../context/AuthContext'
 
-export default function PrivateRoute (privateRoute: JSX.Element) {
-  const auth = { token: true }
+interface Props {
+  children: string | JSX.Element | JSX.Element[]
+}
+
+export default function PrivateRoute ({ children }: Props) {
+  const { isValidToken } = useContext(AuthContext)
   return (
     <>
       {
-        auth.token ? privateRoute : <Navigate to={'/'}/>
+        isValidToken() ? children : <Navigate to={'/'}/>
       }
     </>
   )

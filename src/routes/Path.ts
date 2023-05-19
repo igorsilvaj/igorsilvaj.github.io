@@ -1,6 +1,5 @@
 import { type RouteObject } from 'react-router-dom'
 // import Teste from '../components/Teste';
-import PrivateRoute from '../utils/PrivateRoute'
 import Admin from './Admin'
 import Home from './Home'
 import Login from './Login'
@@ -18,7 +17,7 @@ const path: RouteObject[] = [
   },
   {
     path: 'admin',
-    element: PrivateRoute(Admin())
+    element: Admin()
   }
   // {
   //   path: "Teste/:id",

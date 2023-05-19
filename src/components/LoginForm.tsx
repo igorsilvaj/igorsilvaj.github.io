@@ -1,6 +1,9 @@
-import { useState } from 'react'
+/* eslint-disable @typescript-eslint/no-misused-promises */
+import { AxiosError } from 'axios'
+import { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
+import { AuthContext } from '../context/AuthContext'
 
 const Wrapper = styled.section`
   align-items: center;
@@ -59,48 +62,63 @@ const Button = styled.button`
     animation: jump 0.2s ease-out forwards;
   }
   @keyframes jump {
-    from{
-      transform: translateY(0)
+    from {
+      transform: translateY(0);
     }
-    to{
-      transform: translateY(-3px)
+    to {
+      transform: translateY(-3px);
     }
   }
-
 `
 
 export default function LoginForm () {
-  const [user, setUser] = useState({ email: '', password: '' })
+  const [user, setUser] = useState({ username: '', password: '' })
+  const { signIn, isAuthenticated } = useContext(AuthContext)
+  const [error, setError] = useState<AxiosError | undefined>(undefined)
   const navigate = useNavigate()
-  const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
+
+  const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault()
-    navigate('/admin')
+    console.log('start request token')
+    const err = await signIn(user)
+    if (err instanceof AxiosError) setError(err)
+    console.log('finish request token')
   }
+
+  useEffect(() => {
+    if (isAuthenticated) navigate('/admin')
+  }, [isAuthenticated])
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target
     setUser({ ...user, [name]: value })
   }
 
+  const mockData = () => {
+    setUser({ username: 'Igor Silva', password: '123456789abcd' })
+  }
+
   return (
-      <>
-        <Wrapper>
-          <Form onSubmit={handleSubmit}>
-            <Input
-              type="email"
-              name="email"
-              value={user.email}
-              onChange={handleChange}
-            />
-            <Input
-              type="password"
-              name="password"
-              value={user.password}
-              onChange={handleChange}
-            />
-            <Button>Entrar</Button>
-          </Form>
-        </Wrapper>
-      </>
+    <>
+      <Wrapper>
+        <button onClick={mockData}>Click</button>
+        <Form onSubmit={handleSubmit}>
+          <Input
+            type="text"
+            name="username"
+            value={user.username}
+            onChange={handleChange}
+          />
+          <Input
+            type="password"
+            name="password"
+            value={user.password}
+            onChange={handleChange}
+          />
+          {(error != null) && <p>{error.message}</p>}
+          <Button>Entrar</Button>
+        </Form>
+      </Wrapper>
+    </>
   )
 }

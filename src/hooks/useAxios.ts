@@ -1,16 +1,17 @@
-import { type AxiosInstance, type AxiosResponse } from 'axios'
-import { useState, useEffect } from 'react'
+import { type AxiosInstance, type AxiosRequestConfig, type AxiosResponse } from 'axios'
+import { useEffect, useState } from 'react'
 
 type Methods = 'get' | 'post' | 'patch' | 'put' | 'delete' | 'head' | 'options'
 
-interface AxiosConfigObj {
+interface AxiosConfigObj<T = any> {
   axiosInstance: AxiosInstance
   method: Methods
   url: string
-  requestConfig?: []
+  payload?: T
+  requestConfig?: AxiosRequestConfig
 }
 
-export default function useAxiosFunction () {
+export default function useAxios () {
   const [response, setResponse] = useState<AxiosResponse>()
   const [error, setError] = useState('')
   const [loading, setLoading] = useState<boolean>(false)
@@ -21,6 +22,7 @@ export default function useAxiosFunction () {
       axiosInstance,
       method,
       url,
+      payload = {},
       requestConfig = {}
     } = configObj
 
@@ -29,14 +31,15 @@ export default function useAxiosFunction () {
       const ctrl = new AbortController()
       setController(ctrl)
       method.toLocaleLowerCase()
-      const res = await axiosInstance[method](url, {
-        ...requestConfig,
-        signal: ctrl.signal
-      })
+      const res = await axiosInstance[method](url,
+        payload,
+        {
+          ...requestConfig,
+          signal: ctrl.signal
+        })
       setResponse(res.data)
     } catch (err) {
       if (err instanceof Error) {
-        console.log(err.message)
         setError(err.message)
       }
     } finally {
