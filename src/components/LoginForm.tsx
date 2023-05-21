@@ -3,7 +3,7 @@ import { AxiosError } from 'axios'
 import { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
-import { AuthContext } from '../context/AuthContext'
+import { AuthContext } from '../contexts/AuthContext'
 
 const Wrapper = styled.section`
   align-items: center;

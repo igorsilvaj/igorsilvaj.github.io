@@ -1,10 +1,13 @@
 import { Outlet } from 'react-router-dom'
-import AuthProvider from '../context/AuthContext'
+import AuthProvider from '../contexts/AuthContext'
+import ThemeProvider from '../contexts/ThemeContext'
 
 export default function RootRoute () {
   return (
     <AuthProvider>
-      <Outlet />
+      <ThemeProvider>
+        <Outlet />
+      </ThemeProvider>
     </AuthProvider>
   )
 }

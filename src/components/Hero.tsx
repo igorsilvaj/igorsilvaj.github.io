@@ -1,18 +1,89 @@
-import styled from 'styled-components'
+import { useContext } from 'react'
 import { FaArrowDown } from 'react-icons/fa'
+import styled, { css } from 'styled-components'
 import { constants } from '../GlobalStyle'
+import { ThemeContext } from '../contexts/ThemeContext'
 import { scrollToElement } from '../utils/scroll'
 
-import RainingCode from './RainingCode'
+interface Props {
+  isDarkTheme?: boolean
+}
 
 const StyledSection = styled.section`
-  background-color: white;
+  align-items: flex-end;
+  background: linear-gradient(
+    to bottom,
+    rgb(36, 37, 38),
+    rgba(36, 37, 38, 0.7)
+  );
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
-  min-height: 600px;
   height: calc(100vh - ${constants.HEADER_HEIGHT});
   margin-top: ${constants.HEADER_HEIGHT};
+  ${(props: Props) =>
+    props.isDarkTheme === false &&
+    css`
+      background: linear-gradient(
+        to bottom,
+        rgb(255, 255, 255),
+        rgba(36, 37, 38, 0.7)
+      );
+    `};
+`
+
+const Presentation = styled.div`
+  align-items: center;
+  display: flex;
+  color: white;
+  flex-flow: row wrap;
+  justify-content: center;
+  gap: 20px 0;
+  width: 100%;
+  ${(props: Props) =>
+    props.isDarkTheme === false &&
+    css`
+      color: black;
+    `};
+`
+
+const StyledHeading = styled.h1`
+  font-size: 5rem;
+  font-weight: 900;
+  text-align: center;
+  width: 100%;
+  z-index: 998;
+
+  @media screen and (width < 675px) {
+    font-size: 2.5rem;
+  }
+`
+
+const StyledHeading2 = styled.h2`
+  font-size: 2rem;
+  font-weight: 900;
+  text-align: center;
+  width: 100%;
+  text-transform: uppercase;
+  z-index: 998;
+
+  @media screen and (width < 675px) {
+    font-size: 1rem;
+  }
+`
+
+const StyledHeading3 = styled.h3`
+  font-size: 1rem;
+  font-weight: 900;
+  text-align: center;
+  line-height: 1.5rem;
+  max-width: 910px;
+  z-index: 998;
+
+  @media screen and (width < 675px) {
+    font-size: 0.9rem;
+    max-width: 90%;
+  }
 `
 
 const StyledDiv = styled.div`
@@ -22,7 +93,7 @@ const StyledDiv = styled.div`
   display: flex;
   justify-content: center;
   height: 30px;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   @keyframes bounce {
     0%,
     20%,
@@ -40,65 +111,25 @@ const StyledDiv = styled.div`
   }
 `
 
-const Presentation = styled.div`
-  display: flex;
-  flex-flow: row wrap;
-  width: 100%;
-`
-
-const StyledHeading = styled.h1`
-  font-size: 5rem;
-  font-weight: 900;
-  text-align: center;
-  width: 100%;
-  z-index: 998;
-
-  @media screen and (width < 675px) {
-    font-size: 4rem;
-  }
-`
-
-const StyledHeading2 = styled.h2`
-  font-size: 2rem;
-  font-weight: 900;
-  text-align: center;
-  width: 100%;
-  text-transform: uppercase;
-  z-index: 998;
-
-  @media screen and (width < 675px) {
-    font-size: 1.5rem;
-  }
-`
-
-const StyledHeading3 = styled.h3`
-  font-size: 1rem;
-  font-weight: 900;
-  text-align: center;
-  width: 100%;
-  z-index: 998;
-
-  @media screen and (width < 675px) {
-    font-size: 1rem;
-  }
-`
-
 export default function Hero () {
+  const { isDarkTheme } = useContext(ThemeContext)
   return (
-    <StyledSection id="hero">
-      <RainingCode />
-      <Presentation>
-        <StyledHeading> Olá! Sou o Igor. </StyledHeading>
-        <StyledHeading2>Desenvolvedor Full Stack Junior.</StyledHeading2>
+    <StyledSection id="hero" isDarkTheme={isDarkTheme}>
+      <Presentation isDarkTheme={isDarkTheme}>
+        <StyledHeading>Olá! Sou o Igor.</StyledHeading>
+        <StyledHeading2>Desenvolvedor Full Stack Júnior</StyledHeading2>
         <StyledHeading3>
-          <p>Aqui ficam organizados meus projetos do github por categorias.</p>
-          <p>Conforme aprendo novas tecnologias estou aplicando aqui.</p>
+          <p>Aqui estão organizados meus projetos por categorias.</p>
+          <p>Este site foi desenvolvido do zero como uma aplicação Full Stack, e conforme continuo aprendendo novas tecnologias, estou aplicando-as aqui.</p>
         </StyledHeading3>
       </Presentation>
       <StyledDiv>
         <FaArrowDown
-          size={'30px'}
-          onClick={() => { scrollToElement('projects') }}
+          size="30px"
+          color={isDarkTheme ? 'white' : 'black'}
+          onClick={() => {
+            scrollToElement('projects')
+          }}
         />
       </StyledDiv>
     </StyledSection>

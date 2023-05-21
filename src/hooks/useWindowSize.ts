@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 export interface WindowSize {
   height: undefined | number
   width: undefined | number
 }
 
-export default function useWindowSize () {
+export default function useWindowSize (): WindowSize {
   const [windowSize, setWindowSize] = useState<WindowSize>({
     height: undefined,
     width: undefined

@@ -1,20 +1,21 @@
-import { type ReactNode } from 'react'
-import styled from 'styled-components'
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
+import { useContext, type ReactNode } from 'react'
+import { FaMoon, FaSun } from 'react-icons/fa'
+import styled, { css } from 'styled-components'
+import { ThemeContext } from '../contexts/ThemeContext'
 import useWindowSize from '../hooks/useWindowSize'
 
 interface Props {
-  bgColor?: string
+  isDarkTheme?: boolean
   title?: ReactNode
   desktopMenu?: ReactNode
   mobileMenu?: ReactNode
   children?: ReactNode
 }
 
-const StyledHeader = styled.header.attrs((props: Props) => ({
-  bgColor: props.bgColor ?? 'rgb(36, 37, 38)'
-}))`
+const StyledHeader = styled.header`
   align-items: center;
-  background-color: ${(props) => props.bgColor};
+  background-color: rgb(11, 11, 11);
   color: white;
   display: flex;
   flex-flow: row wrap;
@@ -28,19 +29,30 @@ const StyledHeader = styled.header.attrs((props: Props) => ({
   text-decoration: none;
   width: 100%;
   z-index: 999;
+  ${(props: Props) =>
+    props.isDarkTheme === false &&
+    css`
+      background-color: rgb(172, 171, 171);
+      color: black;
+    `};
+`
+
+const Button = styled.button`
+  background-color: transparent;
 `
 
 export default function Header (props: Props) {
-  const { bgColor, title, desktopMenu, mobileMenu } = props
+  const { desktopMenu, mobileMenu } = props
   const size = useWindowSize()
   const isMobile = (size.width ?? 0) < 700
-  // let isPortrait = false;
-  // isPortrait = size.height > size.width;
+  const { isDarkTheme, setIsDarkTheme } = useContext(ThemeContext)
 
   return (
-    <StyledHeader bgColor={bgColor}>
+    <StyledHeader isDarkTheme={isDarkTheme}>
       {isMobile ? mobileMenu : desktopMenu}
-      {title}
+      <Button onClick={() => { setIsDarkTheme(!isDarkTheme) }} >
+        {isDarkTheme ? <FaSun color="yellow" /> : <FaMoon color="black" />}
+      </Button>
     </StyledHeader>
   )
 }

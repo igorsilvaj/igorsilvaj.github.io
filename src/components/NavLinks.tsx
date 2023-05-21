@@ -1,10 +1,13 @@
+import { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import styled, { css } from 'styled-components'
-import { scrollToElement } from '../utils/scroll'
+import { ThemeContext } from '../contexts/ThemeContext'
 import { type DefaultLink } from '../interfaces'
+import { scrollToElement } from '../utils/scroll'
 
 interface Props {
   mobile?: boolean
+  isDarkTheme?: boolean
   links?: DefaultLink[]
 }
 
@@ -45,8 +48,14 @@ const StyledList = styled.ul`
     (props.mobile ?? false) &&
     css`
       display: flex;
-      flex-flow: ${(props: Props) => ((props.mobile ?? false) ? 'column' : 'row')} wrap;
+      flex-flow: ${(props: Props) => (props.mobile ?? false ? 'column' : 'row')}
+        wrap;
       gap: 15px 0;
+    `};
+  ${(props: Props) =>
+    (props.isDarkTheme === false) &&
+    css`
+      color: black;
     `};
 `
 
@@ -56,21 +65,28 @@ const StyledListItem = styled.li`
 
 export default function NavLinks (props: Props) {
   const { mobile, links } = props
+  const { isDarkTheme } = useContext(ThemeContext)
+
   return (
     <StyledSection mobile={mobile}>
-      <StyledList mobile={mobile}>
+      <StyledList mobile={mobile} isDarkTheme={isDarkTheme}>
         {links?.map(({ name, url, type }) => {
           if (type === 'anchor') {
             return (
-                <StyledListItem key={name} onClick={() => { scrollToElement(url) }}>
-                  {name}
-                </StyledListItem>
+              <StyledListItem
+                key={name}
+                onClick={() => {
+                  scrollToElement(url)
+                }}
+              >
+                {name}
+              </StyledListItem>
             )
           }
           return (
-              <li key={name}>
-                <Link to={url}>{name}</Link>
-              </li>
+            <li key={name}>
+              <Link to={url}>{name}</Link>
+            </li>
           )
         })}
       </StyledList>

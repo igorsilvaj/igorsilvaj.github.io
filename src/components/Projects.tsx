@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import styled, { css } from 'styled-components'
 import ProjectCard from './ProjectCard'
 // import localProjects from "../mock";
 import axios from '../api/onRender'
+import { ThemeContext } from '../contexts/ThemeContext'
 import useAxios from '../hooks/useAxios'
 import useWindowSize from '../hooks/useWindowSize'
 import { type Project } from '../interfaces'
@@ -10,9 +11,26 @@ import { type Project } from '../interfaces'
 interface StyleProps {
   selected?: boolean
   size?: string
+  isDarkTheme?: boolean
 }
 
-const Wrapper = styled.section`
+const Container = styled.section`
+  align-items: center;
+  background: linear-gradient(to top, rgb(36, 37, 38), rgba(36, 37, 38, 0.7));
+  display: flex;
+  flex-flow: column wrap;
+  min-height: calc(100vh - 45px);
+  padding: 0 10px;
+  ${(props: StyleProps) => (props.isDarkTheme === false) && css`
+  background: linear-gradient(
+        to top,
+        rgb(255, 255, 255),
+        rgba(36, 37, 38, 0.7)
+      );
+  `}
+`
+
+const Wrapper = styled.div`
   align-items: center;
   display: flex;
   flex-flow: column wrap;
@@ -21,7 +39,6 @@ const Wrapper = styled.section`
   max-width: 956px;
   width: 90%;
 `
-
 const Canvas = styled.div`
   border: 1px solid #0000001f;
   border-radius: 4px;
@@ -46,10 +63,14 @@ const InnerCanvas = styled.div`
 
 const FilterContainer = styled.div`
   align-self: flex-start;
+  color: white;
   display: flex;
   flex-flow: row wrap;
   padding: 10px 0;
   width: 80%;
+  ${(props: StyleProps) => (props.isDarkTheme === false) && css`
+    color: black;
+  `}
 `
 
 const FilterTitle = styled.h3`
@@ -68,6 +89,7 @@ export default function Projects () {
   const [activeFilter, setActiveFilter] = useState('Todos')
   const [projects, setProjects] = useState<[] | Project[]>([])
   const [filtered, setFiltered] = useState<[] | Project[]>([])
+  const { isDarkTheme } = useContext(ThemeContext)
 
   const screen = useWindowSize()
 
@@ -123,57 +145,59 @@ export default function Projects () {
   }, [projects, activeFilter])
 
   return (
-    <Wrapper id="projects">
-      <FilterContainer>
-        <FilterTitle>Filtrar: </FilterTitle>
-        <FilterOption
-          id="Todos"
-          selected={activeFilter === 'Todos'}
-          onClick={handleClick}
-        >
-          Todos
-        </FilterOption>
-        <FilterOption
-          id="FrontEnd"
-          selected={activeFilter === 'FrontEnd'}
-          onClick={handleClick}
-        >
-          FrontEnd
-        </FilterOption>
-        <FilterOption
-          id="BackEnd"
-          selected={activeFilter === 'BackEnd'}
-          onClick={handleClick}
-        >
-          BackEnd
-        </FilterOption>
-        <FilterOption
-          id="FullStack"
-          selected={activeFilter === 'FullStack'}
-          onClick={handleClick}
-        >
-          FullStack
-        </FilterOption>
-      </FilterContainer>
-      <Canvas>
-        <InnerCanvas size={canvasSize}>
-          {loading && <p>loading...</p>}
-          {!loading && error.length > 0 && <p>{error}</p>}
-          {!loading &&
-            error.length === 0 &&
-            filtered.length > 0 &&
-            filtered.map((e) => (
-              <ProjectCard
-                key={e.id}
-                image={e.image}
-                name={e.name}
-                type={e.type}
-                url={e.url}
-                repository={e.repository}
-              />
-            ))}
-        </InnerCanvas>
-      </Canvas>
-    </Wrapper>
+    <Container id="projects" isDarkTheme={isDarkTheme}>
+      <Wrapper>
+        <FilterContainer isDarkTheme={isDarkTheme}>
+          <FilterTitle>Filtrar: </FilterTitle>
+          <FilterOption
+            id="Todos"
+            selected={activeFilter === 'Todos'}
+            onClick={handleClick}
+          >
+            Todos
+          </FilterOption>
+          <FilterOption
+            id="FrontEnd"
+            selected={activeFilter === 'FrontEnd'}
+            onClick={handleClick}
+          >
+            FrontEnd
+          </FilterOption>
+          <FilterOption
+            id="BackEnd"
+            selected={activeFilter === 'BackEnd'}
+            onClick={handleClick}
+          >
+            BackEnd
+          </FilterOption>
+          <FilterOption
+            id="FullStack"
+            selected={activeFilter === 'FullStack'}
+            onClick={handleClick}
+          >
+            FullStack
+          </FilterOption>
+        </FilterContainer>
+        <Canvas>
+          <InnerCanvas size={canvasSize}>
+            {loading && <p>loading...</p>}
+            {!loading && error.length > 0 && <p>{error}</p>}
+            {!loading &&
+              error.length === 0 &&
+              filtered.length > 0 &&
+              filtered.map((e) => (
+                <ProjectCard
+                  key={e.id}
+                  image={e.image}
+                  name={e.name}
+                  type={e.type}
+                  url={e.url}
+                  repository={e.repository}
+                />
+              ))}
+          </InnerCanvas>
+        </Canvas>
+      </Wrapper>
+    </Container>
   )
 }

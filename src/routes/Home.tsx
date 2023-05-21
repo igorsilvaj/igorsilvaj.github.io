@@ -1,25 +1,16 @@
-import Header from '../components/Header'
-import NavLinks from '../components/NavLinks'
-import HamburgerDropdown from '../components/HamburgerMenu'
-import Hero from '../components/Hero'
-import Projects from '../components/Projects'
-import ContactForm from '../components/ContactForm'
-import Footer from '../components/Footer'
-import { scrollToTop } from '../utils/scroll'
 import styled from 'styled-components'
+import ContactForm from '../components/ContactForm'
 import Controls from '../components/Controls'
-import { constants } from '../GlobalStyle'
+import Footer from '../components/Footer'
+import HamburgerDropdown from '../components/HamburgerMenu'
+import Header from '../components/Header'
+import Hero from '../components/Hero'
+import NavLinks from '../components/NavLinks'
+import Projects from '../components/Projects'
+import { scrollToTop } from '../utils/scroll'
 
 const StyledParagraph = styled.p`
   cursor: pointer;
-`
-
-const Container = styled.section`
-  align-items: center;
-  display: flex;
-  flex-flow: column wrap;
-  min-height: calc(100vh - 45px);
-  margin-top: ${constants.HEADER_HEIGHT};
 `
 
 export default function Home () {
@@ -31,7 +22,13 @@ export default function Home () {
     <>
       <Header
         title={
-          <StyledParagraph onClick={() => { scrollToTop() }}>.DEV</StyledParagraph>
+          <StyledParagraph
+            onClick={() => {
+              scrollToTop()
+            }}
+          >
+            .DEV
+          </StyledParagraph>
         }
         desktopMenu={<NavLinks links={links} />}
         mobileMenu={
@@ -39,10 +36,8 @@ export default function Home () {
         }
       />
       <Hero />
-      <Container>
-        <Projects />
-        <ContactForm />
-      </Container>
+      <Projects />
+      <ContactForm />
       <Footer />
       <Controls links={links} />
     </>
