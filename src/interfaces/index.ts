@@ -12,4 +12,5 @@ export interface Project {
   repository: string
   type: string
   url: string
+  visible: boolean
 }

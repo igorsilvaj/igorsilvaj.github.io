@@ -6,6 +6,7 @@ import useAxios from '../hooks/useAxios'
 import useWindowSize from '../hooks/useWindowSize'
 import { type Project } from '../interfaces'
 import ProjectCard from './ProjectCard'
+import SkeletonLoadingCard from './SkeletonLoadingCard'
 
 interface StyleProps {
   selected?: boolean
@@ -90,6 +91,7 @@ export default function Projects () {
   const [projects, setProjects] = useState<[] | Project[]>([])
   const [filtered, setFiltered] = useState<[] | Project[]>([])
   const { isDarkTheme } = useContext(ThemeContext)
+  const numberOfSkeletons = 9
 
   const screen = useWindowSize()
 
@@ -139,7 +141,7 @@ export default function Projects () {
   useEffect(() => {
     if (projects.length > 0) {
       setFiltered(
-        projects.filter((e) => e.type.includes(dictionary[activeFilter]))
+        projects.filter((e) => e.type.includes(dictionary[activeFilter]) && e.visible)
       )
     }
   }, [projects, activeFilter])
@@ -179,7 +181,7 @@ export default function Projects () {
         </FilterContainer>
         <Canvas>
           <InnerCanvas size={canvasSize}>
-            {loading && <p>loading...</p>}
+            {loading && Array(numberOfSkeletons).fill(0).map((_e, i) => <SkeletonLoadingCard key={i}/>)}
             {!loading && error.length > 0 && <p>{error}</p>}
             {!loading &&
               error.length === 0 &&
