@@ -19,7 +19,7 @@ const StyledSection = styled.section`
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
-  height: calc(100vh - ${constants.HEADER_HEIGHT});
+  height: calc(100dvh - ${constants.HEADER_HEIGHT});
   margin-top: ${constants.HEADER_HEIGHT};
   ${(props: Props) =>
     props.isDarkTheme === false &&
@@ -120,7 +120,13 @@ export default function Hero () {
         <StyledHeading2>Desenvolvedor Full Stack Júnior</StyledHeading2>
         <StyledHeading3>
           <p>Aqui estão organizados meus projetos por categorias.</p>
-          <p>Este site foi desenvolvido do zero como uma aplicação Full Stack, e conforme continuo aprendendo novas tecnologias, estou aplicando-as aqui.</p>
+          <p>
+            Este site foi desenvolvido do zero como uma aplicação Full Stack.
+          </p>
+          <p>
+            À medida que aprendo novas tecnologias, elas podem ser implementadas
+            neste site ou adicionadas à lista de projetos.
+          </p>
         </StyledHeading3>
       </Presentation>
       <StyledDiv>

@@ -97,8 +97,10 @@ const StyledButton = styled.button`
 `
 
 const Social = styled.ul`
+  align-self: center;
   display: flex;
   flex-flow: column wrap;
+  justify-content: center;
   gap: 20px 0;
   width: 150px;
   height: 420px;
@@ -134,8 +136,7 @@ const ListItem = styled.li`
 export default function ContactForm () {
   const { isDarkTheme } = useContext(ThemeContext)
   const size = useWindowSize()
-  const width = (size.width ?? 1300) < 630
-  console.log(width)
+  const width = (size.width ?? 1300) < 635
 
   return (
     <Container id="contact" isDarkTheme={isDarkTheme}>
@@ -185,8 +186,12 @@ export default function ContactForm () {
           </ListItem>
           <ListItem>
             {isDarkTheme
-              ? (<img src={fileLight} width="15px" alt="Read.cv" />)
-              : (<img src={fileDark} width="15px" alt="Read.cv" />)}
+              ? (
+              <img src={fileLight} width="15px" alt="Read.cv" />
+                )
+              : (
+              <img src={fileDark} width="15px" alt="Read.cv" />
+                )}
             <a
               className="anchor"
               target="_blank"

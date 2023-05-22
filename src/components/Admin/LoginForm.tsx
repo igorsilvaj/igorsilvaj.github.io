@@ -3,7 +3,7 @@ import { AxiosError } from 'axios'
 import { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
-import { AuthContext } from '../contexts/AuthContext'
+import { AuthContext } from '../../contexts/AuthContext'
 
 const Wrapper = styled.section`
   align-items: center;
@@ -94,14 +94,9 @@ export default function LoginForm () {
     setUser({ ...user, [name]: value })
   }
 
-  const mockData = () => {
-    setUser({ username: 'Igor Silva', password: '123456789abcd' })
-  }
-
   return (
     <>
       <Wrapper>
-        <button onClick={mockData}>Click</button>
         <Form onSubmit={handleSubmit}>
           <Input
             type="text"

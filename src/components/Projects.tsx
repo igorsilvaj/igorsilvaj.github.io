@@ -1,12 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react'
 import styled, { css } from 'styled-components'
-import ProjectCard from './ProjectCard'
-// import localProjects from "../mock";
 import axios from '../api/onRender'
 import { ThemeContext } from '../contexts/ThemeContext'
 import useAxios from '../hooks/useAxios'
 import useWindowSize from '../hooks/useWindowSize'
 import { type Project } from '../interfaces'
+import ProjectCard from './ProjectCard'
 
 interface StyleProps {
   selected?: boolean
@@ -62,10 +61,12 @@ const InnerCanvas = styled.div`
 `
 
 const FilterContainer = styled.div`
-  align-self: flex-start;
+  align-self: center;
   color: white;
   display: flex;
   flex-flow: row wrap;
+  justify-content: center;
+  gap: 10px;
   padding: 10px 0;
   width: 80%;
   ${(props: StyleProps) => (props.isDarkTheme === false) && css`
@@ -73,11 +74,10 @@ const FilterContainer = styled.div`
   `}
 `
 
-const FilterTitle = styled.h3`
-  width: 100%;
-`
-
 const FilterOption = styled.span`
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: baseline;
   ${(props: StyleProps) =>
     (props.selected ?? false) &&
     css`
@@ -148,7 +148,6 @@ export default function Projects () {
     <Container id="projects" isDarkTheme={isDarkTheme}>
       <Wrapper>
         <FilterContainer isDarkTheme={isDarkTheme}>
-          <FilterTitle>Filtrar: </FilterTitle>
           <FilterOption
             id="Todos"
             selected={activeFilter === 'Todos'}
