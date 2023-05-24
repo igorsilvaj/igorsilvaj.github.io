@@ -1,12 +1,8 @@
-import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useContext } from 'react'
+import { RiFileUserLine, RiGithubFill, RiLinkedinBoxFill } from 'react-icons/ri'
 import styled, { css } from 'styled-components'
 import { ThemeContext } from '../contexts/ThemeContext'
 import useWindowSize from '../hooks/useWindowSize'
-
-import fileDark from '../assets/img/fileDark.svg'
-import fileLight from '../assets/img/fileLight.svg'
 
 interface StyleProps {
   isDarkTheme?: boolean
@@ -163,7 +159,7 @@ export default function ContactForm () {
         </StyledForm>
         <Social isDarkTheme={isDarkTheme} mobile={width}>
           <ListItem>
-            <FontAwesomeIcon icon={faLinkedin} />
+            <RiLinkedinBoxFill />
             <a
               className="anchor"
               target="_blank"
@@ -174,7 +170,7 @@ export default function ContactForm () {
             </a>
           </ListItem>
           <ListItem>
-            <FontAwesomeIcon icon={faGithub} />
+            <RiGithubFill />
             <a
               className="anchor"
               target="_blank"
@@ -185,13 +181,7 @@ export default function ContactForm () {
             </a>
           </ListItem>
           <ListItem>
-            {isDarkTheme
-              ? (
-              <img src={fileLight} width="15px" alt="Read.cv" />
-                )
-              : (
-              <img src={fileDark} width="15px" alt="Read.cv" />
-                )}
+            <RiFileUserLine/>
             <a
               className="anchor"
               target="_blank"
