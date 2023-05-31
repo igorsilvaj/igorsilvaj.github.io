@@ -79,10 +79,8 @@ export default function LoginForm () {
 
   const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault()
-    console.log('start request token')
     const err = await signIn(user)
     if (err instanceof AxiosError) setError(err)
-    console.log('finish request token')
   }
 
   useEffect(() => {
