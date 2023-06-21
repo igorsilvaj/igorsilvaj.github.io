@@ -1,6 +1,17 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 
+interface Data {
+  [key: string]: any
+  name: string
+  image: string
+  url: string
+  repository: string
+  type: string
+  position: number
+  visible: boolean
+}
+
 const Form = styled.form`
   margin: 0 auto;
   width: 100%;
@@ -80,7 +91,7 @@ const Label = styled.label`
 `
 
 export default function NewProjectForm () {
-  const [dados, setDados] = useState({
+  const [data, setData] = useState<Data>({
     name: '',
     image: '',
     url: '',
@@ -98,18 +109,33 @@ export default function NewProjectForm () {
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = event.target
-    setDados({ ...dados, [name]: value })
-    console.log(name, value)
+    setData({ ...data, [name]: value })
   }
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = event.target
-    setDados({ ...dados, [name]: checked })
-    console.log(name, checked)
+    setData({ ...data, [name]: checked })
+  }
+
+  const checkFields = (): boolean => {
+    const { position, visible, ...dataToTest }: Data = data
+    for (const key in dataToTest) {
+      if (dataToTest[key].length === 0) return false
+      // display msg asking to fill all the fields
+    }
+    // display msg for confirmation
+    return true
+  }
+
+  const register = () => {
+    const result = checkFields()
+    if (result) {
+      console.log(result)
+    }
   }
 
   const mockInfos = () => {
-    setDados({
+    setData({
       name: 'Lessons Learned',
       image:
         'https://raw.githubusercontent.com/igorsilvaj/lessons-learned/main/resources/images/lessons-learned.png',
@@ -122,7 +148,7 @@ export default function NewProjectForm () {
   }
 
   const clearForm = () => {
-    setDados({
+    setData({
       name: '',
       image: '',
       url: '',
@@ -139,35 +165,35 @@ export default function NewProjectForm () {
         <Input
           type="text"
           placeholder="projectName"
-          name="projectName"
-          value={dados.name}
+          name="name"
+          value={data.name}
           onChange={handleChange}
         />
         <Input
           type="text"
           placeholder="image"
           name="image"
-          value={dados.image}
+          value={data.image}
           onChange={handleChange}
         />
         <Input
           type="text"
           placeholder="url"
           name="url"
-          value={dados.url}
+          value={data.url}
           onChange={handleChange}
         />
         <Input
           type="text"
           placeholder="repository"
           name="repository"
-          value={dados.repository}
+          value={data.repository}
           onChange={handleChange}
         />
         <Select
           placeholder="Stack"
           name="type"
-          value={dados.type}
+          value={data.type}
           onChange={handleChange}
         >
           <option value="FE">FE</option>
@@ -178,7 +204,7 @@ export default function NewProjectForm () {
           type="number"
           placeholder="position"
           name="position"
-          value={dados.position}
+          value={data.position}
           onChange={handleChange}
         />
         <Label htmlFor="projectVisible">
@@ -186,12 +212,12 @@ export default function NewProjectForm () {
             id="projectVisible"
             type="checkbox"
             name="visible"
-            checked={dados.visible}
+            checked={data.visible}
             onChange={handleCheckboxChange}
           />
           Projeto deve estar visivel?
         </Label>
-        <Button>Cadastrar</Button>
+        <Button onClick={register}>Cadastrar</Button>
         <Button onClick={mockInfos}>Mock Infos</Button>
         <Button onClick={clearForm}>Limpar Form</Button>
       </Form>

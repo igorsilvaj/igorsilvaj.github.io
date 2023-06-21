@@ -13,4 +13,5 @@ export interface Project {
   type: string
   url: string
   visible: boolean
+  position: number
 }

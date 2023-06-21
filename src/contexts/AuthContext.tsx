@@ -2,7 +2,7 @@
 import { AxiosError } from 'axios'
 import Cookies from 'js-cookie'
 import jwtDecode from 'jwt-decode'
-import { createContext, useEffect, useState } from 'react'
+import { createContext, useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from '../api/onRender'
 import useAxiosSimple from '../hooks/useAxiosSimple'
@@ -12,6 +12,7 @@ interface Props {
 }
 
 interface IAuthContext {
+  token: string
   user: User | null
   isAuthenticated: boolean
   signIn: (data: SignInData) => Promise<AxiosError | undefined>
@@ -37,13 +38,14 @@ export const AuthContext = createContext({} as unknown as IAuthContext)
 
 export default function AuthProvider ({ children }: Props) {
   const [user, setUser] = useState<User | null>(null)
+  const [token, setToken] = useState<undefined | string>(undefined)
   const navigate = useNavigate()
 
-  const isAuthenticated = !(user == null)
+  const isAuthenticated = user != null
 
   // efeito para verificar se o usuario já se autenticou
   useEffect(() => {
-    const token = Cookies.get('token')
+    setToken(Cookies.get('token'))
 
     if (token !== undefined) {
       // refatorar, fazer o backend retornar as informações do user
@@ -87,9 +89,11 @@ export default function AuthProvider ({ children }: Props) {
     return false
   }
 
+  const contextValue = useMemo(() => ({
+    token, user, isAuthenticated, signIn, isValidToken
+  }), [token])
+
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated, signIn, isValidToken }}>
-      {children}
-    </AuthContext.Provider>
+    <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
   )
 }
