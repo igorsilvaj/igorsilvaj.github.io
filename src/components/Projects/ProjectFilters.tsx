@@ -1,14 +1,11 @@
 "use client";
 
-interface Props {
-  activeFilter: string;
-  setActiveFilter: (s: string) => void;
-}
+import { AppContext } from "@/context/AppContext";
+import { useContext } from "react";
 
-export default function ProjectFilters({
-  activeFilter,
-  setActiveFilter,
-}: Props) {
+export default function ProjectFilters() {
+  const { activeFilter, setActiveFilter } = useContext(AppContext);
+  
   return (
     <div className="p-5 text-white">
       <ul className="flex gap-x-5">

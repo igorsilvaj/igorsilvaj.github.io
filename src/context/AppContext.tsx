@@ -5,6 +5,8 @@ import React, { createContext, useMemo, useState } from "react";
 export const AppContext = createContext({
   toggleContact: false,
   setToggleContact: (b: boolean) => {},
+  activeFilter: "Todos", 
+  setActiveFilter: (b: string) => {},
 });
 
 interface Props {
@@ -13,13 +15,16 @@ interface Props {
 
 export default function AppContextProvider({ children }: Props) {
   const [toggleContact, setToggleContact] = useState(false);
+  const [activeFilter, setActiveFilter] = useState("Todos");
 
   const contextValue = useMemo(
     () => ({
       toggleContact,
       setToggleContact,
+      activeFilter, 
+      setActiveFilter
     }),
-    [toggleContact]
+    [toggleContact, activeFilter]
   );
 
   return (

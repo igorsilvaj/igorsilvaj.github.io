@@ -1,14 +1,10 @@
-"use client"
-
-import { Suspense, useState } from "react";
+import { Suspense } from "react";
 
 import LoadingProjects from "./LoadingProjects";
-import ProjectsContainer from "./ProjectsContainer";
 import ProjectFilters from "./ProjectFilters";
+import GetProjects from "./GetProjects";
 
 export default function Projects() {
-  const [activeFilter, setActiveFilter] = useState("Todos");
-
   return (
     <section>
       <div
@@ -16,12 +12,9 @@ export default function Projects() {
         className="flex flex-wrap flex-col items-center w-full bg-[url('/bg.png')] min-h-[500px]"
       >
         <h2 className="text-2xl mt-5 font-bold text-white">Projetos</h2>
-        <ProjectFilters
-          setActiveFilter={setActiveFilter}
-          activeFilter={activeFilter}
-        />
+        <ProjectFilters />
         <Suspense fallback={<LoadingProjects />}>
-          <ProjectsContainer filter={activeFilter}/>
+          <GetProjects />
         </Suspense>
       </div>
     </section>

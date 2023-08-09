@@ -1,8 +1,7 @@
 export default interface Project {
-  id: number;
+  id: string;
   image: string;
   name: string;
-  ownerId: number;
   repository: string;
   type: string;
   url: string;
