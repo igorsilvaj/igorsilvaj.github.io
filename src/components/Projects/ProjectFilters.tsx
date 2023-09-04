@@ -39,7 +39,7 @@ export default function ProjectFilters() {
         >
           BackEnd
         </li>
-        <li
+        {/* <li
           className={`${
             activeFilter === "FullStack" ? "font-bold" : "font-normal"
           } cursor-pointer`}
@@ -48,7 +48,7 @@ export default function ProjectFilters() {
           }}
         >
           FullStack
-        </li>
+        </li> */}
       </ul>
     </div>
   );
