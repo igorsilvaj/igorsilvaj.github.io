@@ -5,9 +5,11 @@ import { FaArrowDown, FaGithub, FaLinkedin } from "react-icons/fa";
 import { AiOutlineMail } from "react-icons/ai";
 import { RiFileUserLine } from "react-icons/ri";
 import { scrollToElement } from "@/utils/scroll";
+import bg from '@public/bg.png'
 
 import Image from "next/image";
 import Link from "next/link";
+import Background from "../background/Background";
 
 export default function Hero() {
   const [activeMessage, setActiveMessage] = useState(["", false]);
@@ -18,11 +20,13 @@ export default function Hero() {
       setActiveMessage(["", false]);
     }, duration);
   };
+
   return (
     <section
       id="hero"
-      className={`flex flex-nowrap flex-col items-center justify-center h-[100dvh] min-h-[600px] bg-[url('/bg.png')] relative`}
+      className={`flex flex-nowrap flex-col items-center justify-center h-[100dvh] min-h-[600px] relative`}
     >
+      <Background bg={bg} />
       <div className="flex flex-wrap justify-center items-center">
         <div
           className="flex flex-col flex-wrap items-center gap-2 p-10 rounded-md
@@ -70,7 +74,7 @@ export default function Hero() {
           }}
         />
       </div>
-      <div className={`${activeMessage[1] ? 'fixed': 'hidden'} top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
+      <div className={`${activeMessage[1] ? 'fixed' : 'hidden'} top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
       font-bold text-green-600 bg-white p-5 rounded-lg`}>
         {activeMessage}
       </div>

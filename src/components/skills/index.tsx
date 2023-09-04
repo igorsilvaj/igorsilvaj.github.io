@@ -4,6 +4,8 @@ import React from "react";
 import { TagCloud } from "../tagCloud";
 import tags from "./tags";
 import useWindowSize from "@/hooks/useWindowSize";
+import Background from "../background/Background";
+import bg from '@public/bg.png'
 
 export default function Skills() {
   const { width } = useWindowSize();
@@ -11,8 +13,9 @@ export default function Skills() {
   return (
     <section
       id="skills"
-      className="flex flex-col justify-center items-center px-5 bg-[url('/bg.png')] min-h-[100dvh]"
+      className="flex flex-col justify-center items-center px-5 min-h-[100dvh] relative"
     >
+      <Background bg={bg} />
       <div className="flex sm:flex-col md:flex-row justify-center items-center text-white mt-16">
         <div className="flex flex-col min-w-[300px] max-w-2xl gap-2">
           <p>
